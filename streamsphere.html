@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StreamSphere · Parul Mudaliar, Project Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #0A0A0F;
+    --surface: #15151E;
+    --surface-raised: #1C1C28;
+    --text: #ECEAF5;
+    --muted: #8B8B9E;
+    --muted-dim: #5C5C6E;
+    --glow: #6E5BFF;
+    --glow-bright: #8B7AFF;
+    --glow-soft: rgba(110,91,255,0.14);
+    --live: #FF3D6E;
+    --mint: #2EE6A8;
+    --line: rgba(255,255,255,0.08);
+    --line-bright: rgba(255,255,255,0.16);
+  }
+
+  * , *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--glow); color: var(--void); }
+  a { color: inherit; }
+
+  .display { font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; letter-spacing: -.01em; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: .5;
+    background-image: radial-gradient(ellipse 900px 500px at 15% 0%, rgba(110,91,255,0.08), transparent 60%);
+  }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 2.5rem; position: relative; z-index: 2; }
+
+  /* ===================== NAV ===================== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 2.5rem;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-id { display: flex; align-items: center; gap: .6rem; }
+  .nav-id .rec-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--live); animation: rec-pulse 1.6s infinite; }
+  @keyframes rec-pulse { 0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,61,110,0.5); } 50% { opacity: .5; box-shadow: 0 0 0 4px rgba(255,61,110,0); } }
+  .nav-id span { font-family: 'JetBrains Mono', monospace; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase;
+    text-decoration: none; color: var(--muted); padding-bottom: 3px; border-bottom: 2px solid transparent;
+    transition: color .15s, border-color .15s;
+  }
+  .nav-links a:hover { color: var(--text); border-color: var(--glow); }
+  .nav-cta {
+    font-family: 'JetBrains Mono', monospace; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase;
+    background: var(--glow); color: var(--void); padding: .55rem 1.1rem; text-decoration: none; border-radius: 4px;
+    transition: background .15s;
+  }
+  .nav-cta:hover { background: var(--glow-bright); }
+  @media (max-width: 860px) { .nav-links { display: none; } }
+
+  /* ===================== HERO ===================== */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 7.5rem 2.5rem 3rem; position: relative; }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: .6rem; font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+    border: 1px solid var(--line-bright); padding: .5rem 1rem; border-radius: 100px; margin-bottom: 2rem; align-self: flex-start;
+  }
+  .hero-eyebrow .pip { color: var(--mint); }
+
+  .hero-headline { font-size: clamp(3rem, 8.5vw, 7rem); line-height: .95; margin-bottom: 1.5rem; max-width: 1100px; }
+  .hero-headline .glow-text { color: var(--glow-bright); text-shadow: 0 0 40px rgba(139,122,255,0.4); }
+
+  .hero-sub-row { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: start; margin-top: 1rem; }
+  .hero-dek { font-size: 1.1rem; color: var(--muted); max-width: 560px; line-height: 1.7; }
+  .hero-dek strong { color: var(--text); font-weight: 600; }
+
+  .hero-card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.5rem 1.75rem;
+  }
+  .hero-card-label { font-family: 'JetBrains Mono', monospace; font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted-dim); margin-bottom: .9rem; }
+  .hero-meta-row { display: flex; justify-content: space-between; font-size: .85rem; padding: .5rem 0; border-bottom: 1px solid var(--line); }
+  .hero-meta-row:last-child { border-bottom: none; }
+  .hero-meta-row span:first-child { color: var(--muted); }
+  .hero-meta-row span:last-child { font-weight: 600; text-align: right; }
+
+  .hero-stat-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin-top: 3rem; }
+  .stat-cell { background: var(--surface); padding: 1.25rem 1.5rem; }
+  .stat-cell .num { font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 2rem; line-height: 1; color: var(--text); }
+  .stat-cell .lab { font-family: 'JetBrains Mono', monospace; font-size: .64rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin-top: .4rem; display: block; }
+
+  @media (max-width: 860px) {
+    .hero-sub-row { grid-template-columns: 1fr; }
+    .hero-stat-strip { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ===================== SECTION SCAFFOLD ===================== */
+  .section { padding: 6rem 0; border-top: 1px solid var(--line); }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--glow-bright); display: flex; align-items: center; gap: .65rem; margin-bottom: 1rem;
+  }
+  .eyebrow::before { content: ''; width: 20px; height: 2px; background: var(--glow); }
+  .section-title { font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: clamp(2rem, 4.2vw, 3.2rem); line-height: 1.03; max-width: 880px; margin-bottom: 1rem; }
+  .section-dek { font-size: 1rem; color: var(--muted); max-width: 640px; line-height: 1.7; margin-bottom: 3rem; }
+
+  /* ===================== ROLE PILLS (USER/CREATOR/ADMIN) ===================== */
+  .role-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; margin-bottom: 1rem; }
+  .role-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.75rem; position: relative; overflow: hidden; }
+  .role-card::before { content: none; }
+  .role-card { position: relative; }
+  .role-index { position: absolute; top: 1.5rem; right: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: .68rem; color: var(--muted-dim); letter-spacing: .05em; }
+  .role-card-inner { position: relative; z-index: 1; }
+  .role-tag { font-family: 'JetBrains Mono', monospace; font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--glow-bright); margin-bottom: .6rem; display: block; }
+  .role-card h4 { font-size: 1.1rem; margin-bottom: .6rem; }
+  .role-card p { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+  @media (max-width: 860px) { .role-grid { grid-template-columns: 1fr; } }
+
+  /* ===================== SCHEMA RECEIPT ===================== */
+  .stat-receipt { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; max-width: 760px; overflow: hidden; }
+  .stat-receipt-row { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: baseline; padding: 1rem 1.5rem; border-bottom: 1px solid var(--line); }
+  .stat-receipt-row:last-child { border-bottom: none; }
+  .stat-receipt-row .rl { font-size: .9rem; color: var(--muted); }
+  .stat-receipt-row .rv { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: .95rem; color: var(--text); white-space: nowrap; }
+  .stat-receipt-row .rv.glow { color: var(--glow-bright); }
+  .stat-receipt-row .rv.mint { color: var(--mint); }
+
+  /* ===================== CONTENT GRID (signature element: title tiles) ===================== */
+  .catalog-row-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.25rem; }
+  .catalog-row-label h3 { font-size: 1.2rem; font-weight: 600; }
+  .catalog-row-label span { font-family: 'JetBrains Mono', monospace; font-size: .65rem; color: var(--muted-dim); letter-spacing: .06em; text-transform: uppercase; }
+
+  .tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.1rem; margin-bottom: 1rem; }
+  .tile {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+    cursor: pointer; transition: border-color .2s, transform .2s; position: relative;
+  }
+  .tile:hover { border-color: var(--glow); transform: translateY(-3px); }
+  .tile.open { border-color: var(--glow-bright); }
+  .tile-banner {
+    height: 90px; display: flex; align-items: center; justify-content: center; position: relative;
+    background: linear-gradient(135deg, var(--surface-raised), var(--surface));
+  }
+  .tile-banner .tile-icon { font-size: 1.8rem; opacity: .55; }
+  .tile-banner .tile-badge {
+    position: absolute; top: .6rem; right: .6rem; font-family: 'JetBrains Mono', monospace; font-size: .58rem;
+    letter-spacing: .04em; text-transform: uppercase; padding: .2rem .5rem; border-radius: 4px;
+    background: rgba(0,0,0,0.5); color: var(--mint); border: 1px solid rgba(46,230,168,0.3);
+  }
+  .tile-banner .tile-badge.pk { color: var(--glow-bright); border-color: rgba(139,122,255,0.35); }
+  .tile-body { padding: 1rem 1.1rem 1.6rem; }
+  .tile-title { font-size: .95rem; font-weight: 600; margin-bottom: .25rem; }
+  .tile-meta { font-family: 'JetBrains Mono', monospace; font-size: .65rem; color: var(--muted-dim); letter-spacing: .03em; margin-bottom: .65rem; }
+  .tile-cols { display: flex; flex-wrap: wrap; gap: .35rem; }
+  .tile-col-chip { font-family: 'JetBrains Mono', monospace; font-size: .6rem; color: var(--muted); background: rgba(255,255,255,0.04); border: 1px solid var(--line); padding: .18rem .45rem; border-radius: 4px; white-space: nowrap; }
+  .tile-expand-arrow { position: absolute; bottom: .6rem; right: .6rem; color: var(--muted); font-size: .9rem; transition: transform .25s; }
+  .tile.open .tile-expand-arrow { transform: rotate(45deg); color: var(--glow-bright); }
+
+  .tile-detail {
+    grid-column: 1 / -1; max-height: 0; overflow: hidden; transition: max-height .4s ease, border-color .2s, margin .2s;
+    background: var(--surface-raised); border: 1px solid transparent; border-radius: 10px; margin-top: 0;
+  }
+  .tile-detail.is-open {
+    border-color: var(--glow); margin-top: -1px;
+  }
+  .tile-detail-inner { padding: 1.75rem; }
+
+  @media (max-width: 700px) { .tile-grid { grid-template-columns: 1fr 1fr; } }
+
+  /* generic kit reused for inner panel content */
+  .kit-lede { font-size: .92rem; color: var(--text); background: var(--surface); border-left: 3px solid var(--glow); padding: 1rem 1.25rem; margin-bottom: 1.5rem; line-height: 1.65; border-radius: 0 8px 8px 0; }
+  .kit-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin-bottom: 1.5rem; }
+  .kit-grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 1.5rem; }
+  @media (max-width: 760px) { .kit-grid-2, .kit-grid-3 { grid-template-columns: 1fr; } }
+  .kit-card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 1.1rem 1.25rem; }
+  .kit-card h4 { font-family: 'JetBrains Mono', monospace; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; color: var(--glow-bright); margin-bottom: .55rem; }
+  .kit-card p, .kit-card li { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+  .kit-card ul { padding-left: 1.1rem; }
+  .kit-card li { margin-bottom: .3rem; }
+  .kit-card strong { color: var(--text); }
+
+  .code-block {
+    background: #0D0D14; border: 1px solid var(--line); border-radius: 8px; padding: 1.1rem 1.25rem;
+    font-family: 'JetBrains Mono', monospace; font-size: .78rem; line-height: 1.7; overflow-x: auto; margin-bottom: 1.25rem;
+    color: #C9C7E0;
+  }
+  .code-block .kw { color: var(--glow-bright); }
+  .code-block .fn { color: var(--mint); }
+  .code-block .cm { color: var(--muted-dim); }
+
+  .kit-table { width: 100%; border-collapse: collapse; font-size: .84rem; margin-bottom: 1.25rem; }
+  .kit-table th { font-family: 'JetBrains Mono', monospace; font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; text-align: left; padding: .65rem .85rem; border-bottom: 1px solid var(--line-bright); color: var(--muted); }
+  .kit-table td { padding: .7rem .85rem; border-bottom: 1px solid var(--line); color: var(--muted); vertical-align: top; }
+  .kit-table td:first-child { color: var(--text); font-weight: 600; }
+  .kit-table tr.hl td { background: var(--glow-soft); }
+  .kit-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .pill-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .5rem; }
+  .pill { font-family: 'JetBrains Mono', monospace; font-size: .62rem; letter-spacing: .04em; text-transform: uppercase; padding: .3rem .65rem; border-radius: 4px; border: 1px solid var(--line-bright); color: var(--muted); }
+  .pill.glow { background: var(--glow-soft); color: var(--glow-bright); border-color: rgba(139,122,255,0.35); }
+  .pill.mint { background: rgba(46,230,168,0.1); color: var(--mint); border-color: rgba(46,230,168,0.3); }
+  .pill.live { background: rgba(255,61,110,0.1); color: var(--live); border-color: rgba(255,61,110,0.3); }
+
+  /* ===================== NORMAL FORM TRACK ===================== */
+  .nf-track { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin-bottom: 1.5rem; }
+  .nf-stage { background: var(--surface); padding: 1.5rem; }
+  .nf-stage .nf-tag { font-family: 'JetBrains Mono', monospace; font-size: .62rem; letter-spacing: .08em; color: var(--mint); }
+  .nf-stage .nf-title { font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 1.5rem; margin: .25rem 0 .85rem; }
+  .nf-stage p { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+  @media (max-width: 760px) { .nf-track { grid-template-columns: 1fr; } }
+
+  /* ===================== EMBED VS REFERENCE ===================== */
+  .mongo-decision { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.5rem 1.75rem; margin-bottom: 1.25rem; }
+  .mongo-decision-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: .75rem; }
+  .mongo-decision-head h4 { font-size: 1rem; }
+  .mongo-criteria { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+  .mongo-criteria .mc { font-size: .82rem; color: var(--muted); line-height: 1.55; }
+  .mongo-criteria .mc strong { display: block; color: var(--text); font-size: .72rem; font-family: 'JetBrains Mono', monospace; letter-spacing: .04em; text-transform: uppercase; margin-bottom: .35rem; }
+  @media (max-width: 760px) { .mongo-criteria { grid-template-columns: 1fr; } }
+
+  /* ===================== PM ROLE STRIP ===================== */
+  .process-strip { display: grid; grid-template-columns: repeat(5,1fr); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .process-cell { background: var(--surface); padding: 1.5rem 1.25rem; border-right: 1px solid var(--line); }
+  .process-cell:last-child { border-right: none; }
+  .process-cell .pc-num { font-family: 'JetBrains Mono', monospace; font-size: .68rem; color: var(--glow-bright); }
+  .process-cell .pc-title { font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 1rem; margin: .5rem 0 .5rem; line-height: 1.15; }
+  .process-cell p { font-size: .78rem; color: var(--muted); line-height: 1.55; }
+  @media (max-width: 900px) { .process-strip { grid-template-columns: 1fr 1fr; } .process-cell { border-bottom: 1px solid var(--line); } }
+  @media (max-width: 560px) { .process-strip { grid-template-columns: 1fr; } }
+
+  .own-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+  .own-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.5rem; }
+  .own-card .oc-icon { font-size: 1.4rem; margin-bottom: .75rem; display: block; color: var(--glow-bright); }
+  .own-card h4 { font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 1.05rem; margin-bottom: .5rem; }
+  .own-card p { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+  @media (max-width: 860px) { .own-grid { grid-template-columns: 1fr; } }
+
+  /* ===================== FRONTEND / FIGMA PROTOTYPE ===================== */
+  .figma-cta {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+    background: linear-gradient(135deg, var(--surface-raised), var(--surface)); border: 1px solid var(--glow);
+    border-radius: 12px; padding: 1.5rem 1.75rem; margin-bottom: 2.5rem;
+  }
+  .figma-cta-left { display: flex; align-items: center; gap: 1rem; }
+  .figma-cta-icon {
+    width: 2.75rem; height: 2.75rem; border-radius: 8px; background: var(--glow-soft); display: flex;
+    align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;
+  }
+  .figma-cta-title { font-size: 1rem; font-weight: 600; margin-bottom: .2rem; }
+  .figma-cta-sub { font-size: .82rem; color: var(--muted); }
+  .figma-cta-link {
+    font-family: 'JetBrains Mono', monospace; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase;
+    background: var(--glow); color: var(--void); padding: .7rem 1.3rem; border-radius: 6px; text-decoration: none;
+    white-space: nowrap; transition: background .15s;
+  }
+  .figma-cta-link:hover { background: var(--glow-bright); }
+
+  .mock-tabs { display: flex; gap: .5rem; margin-bottom: 1.5rem; }
+  .mock-tab {
+    font-family: 'JetBrains Mono', monospace; font-size: .68rem; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--muted); background: var(--surface); border: 1px solid var(--line); padding: .55rem 1rem;
+    border-radius: 6px; cursor: pointer; transition: color .15s, border-color .15s;
+  }
+  .mock-tab.active { color: var(--glow-bright); border-color: var(--glow); background: var(--glow-soft); }
+
+  .mock-frame {
+    background: #0D0D14; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .mock-screen { display: none; padding: 1.25rem; }
+  .mock-screen.active { display: block; }
+
+  .mock-hero {
+    border-radius: 8px; padding: 2.25rem 1.75rem; margin-bottom: 1.25rem; position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #2A1530, #14101F 60%); min-height: 180px; display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .mock-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 500px 300px at 75% 30%, rgba(255,61,110,0.18), transparent 70%);
+  }
+  .mock-hero-tags { display: flex; gap: .4rem; margin-bottom: .6rem; position: relative; z-index: 1; }
+  .mock-hero-tag { font-family: 'JetBrains Mono', monospace; font-size: .6rem; text-transform: uppercase; background: rgba(255,255,255,0.1); padding: .2rem .55rem; border-radius: 4px; color: var(--text); }
+  .mock-hero h5 { font-size: 1.6rem; font-weight: 700; margin-bottom: .4rem; position: relative; z-index: 1; }
+  .mock-hero p { font-size: .8rem; color: rgba(236,234,245,0.65); max-width: 420px; line-height: 1.5; position: relative; z-index: 1; margin-bottom: 1rem; }
+  .mock-hero-actions { display: flex; gap: .6rem; position: relative; z-index: 1; }
+  .mock-btn { font-family: 'Inter', sans-serif; font-size: .75rem; font-weight: 600; padding: .5rem 1rem; border-radius: 5px; }
+  .mock-btn.primary { background: var(--glow); color: var(--void); }
+  .mock-btn.secondary { background: rgba(255,255,255,0.08); color: var(--text); }
+
+  .mock-row-label { font-size: .8rem; font-weight: 600; margin-bottom: .65rem; color: var(--text); }
+  .mock-card-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: .6rem; margin-bottom: 1.5rem; }
+  .mock-card {
+    background: linear-gradient(135deg, var(--surface-raised), #1A1A28); border-radius: 6px; aspect-ratio: 16/10;
+    position: relative; overflow: hidden; padding: .5rem;
+  }
+  .mock-card .mc-time { position: absolute; top: .35rem; left: .35rem; font-family: 'JetBrains Mono', monospace; font-size: .55rem; background: rgba(0,0,0,0.6); padding: .1rem .35rem; border-radius: 3px; }
+  .mock-card .mc-title { position: absolute; bottom: .35rem; left: .35rem; right: .35rem; font-size: .62rem; font-weight: 600; }
+  .mock-card .mc-rating { position: absolute; bottom: .35rem; right: .35rem; font-family: 'JetBrains Mono', monospace; font-size: .55rem; color: var(--mint); }
+
+  .mock-stat-row { display: grid; grid-template-columns: repeat(4,1fr); gap: .75rem; margin-bottom: 1.25rem; }
+  .mock-stat { background: var(--surface-raised); border-radius: 8px; padding: .9rem 1rem; }
+  .mock-stat .ms-icon { font-size: .9rem; margin-bottom: .4rem; display: block; }
+  .mock-stat .ms-val { font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 1.4rem; }
+  .mock-stat .ms-lab { font-size: .62rem; color: var(--muted-dim); }
+  .mock-stat .ms-delta { font-size: .58rem; color: var(--mint); margin-top: .2rem; }
+
+  .mock-chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+  .mock-chart { background: var(--surface-raised); border-radius: 8px; padding: 1rem; }
+  .mock-chart h6 { font-size: .72rem; font-weight: 600; margin-bottom: .75rem; }
+  .mock-bars { display: flex; align-items: flex-end; gap: .4rem; height: 70px; }
+  .mock-bar { flex: 1; background: var(--glow); border-radius: 2px 2px 0 0; opacity: .8; }
+
+  @media (max-width: 760px) {
+    .mock-card-row { grid-template-columns: repeat(3,1fr); }
+    .mock-stat-row { grid-template-columns: 1fr 1fr; }
+    .mock-chart-row { grid-template-columns: 1fr; }
+    .figma-cta { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* ===================== VERDICT / CLOSER ===================== */
+  .verdict-banner {
+    background: linear-gradient(135deg, var(--surface-raised), var(--surface)); border: 1px solid var(--glow);
+    border-radius: 14px; padding: 2.5rem; display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center;
+    box-shadow: 0 0 60px rgba(110,91,255,0.08);
+  }
+  .verdict-tag .vlabel { font-family: 'JetBrains Mono', monospace; font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: .5rem; }
+  .verdict-tag .vvalue { font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 2rem; color: var(--glow-bright); white-space: nowrap; line-height: 1.05; }
+  .verdict-text p { font-size: .94rem; line-height: 1.7; color: var(--muted); }
+  @media (max-width: 760px) { .verdict-banner { grid-template-columns: 1fr; text-align: left; } }
+
+  /* ===================== ABOUT / FOOTER ===================== */
+  .about-section { background: var(--surface); padding: 5rem 0; border-top: 1px solid var(--line); }
+  .about-inner { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: center; }
+  .about-name { font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 2.3rem; line-height: 1; margin-bottom: .5rem; }
+  .about-role { font-family: 'JetBrains Mono', monospace; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--glow-bright); }
+  .about-text { font-size: .92rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; }
+  .about-links { display: flex; gap: .9rem; flex-wrap: wrap; }
+  .about-link { font-family: 'JetBrains Mono', monospace; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; color: var(--text); border: 1px solid var(--line-bright); padding: .55rem 1rem; border-radius: 4px; transition: background .15s, border-color .15s; }
+  .about-link:hover { background: var(--glow-soft); border-color: var(--glow); }
+  @media (max-width: 860px) { .about-inner { grid-template-columns: 1fr; } }
+
+  footer { padding: 1.5rem 0; }
+  .footer-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
+  footer p { font-family: 'JetBrains Mono', monospace; font-size: .65rem; color: var(--muted-dim); letter-spacing: .03em; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .rec-dot { animation: none; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-id">
+    <span class="rec-dot"></span>
+    <span>PM · Parul Mudaliar</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#schema">Schema</a></li>
+    <li><a href="#catalog">Tables</a></li>
+    <li><a href="#mongo">MongoDB</a></li>
+    <li><a href="#frontend">Frontend</a></li>
+    <li><a href="#verdict">Outcome</a></li>
+  </ul>
+  <a href="https://github.com/ParulMudaliar/StreamSphere/tree/main" class="nav-cta" target="_blank">Github ↗</a>
+</nav>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">
+      <span class="pip">●</span><span>IS 455 · Database Design and Prototyping · UIUC · Spring 2026</span>
+    </div>
+
+    <h1 class="hero-headline display">
+      STREAM<span class="glow-text">SPHERE</span>
+    </h1>
+
+    <div class="hero-sub-row">
+      <p class="hero-dek">
+        A relational database built from scratch for a streaming platform: <strong>20 normalized tables</strong>, a full entity-relationship design across three user roles and three content types, SQL queries answering real platform questions, and a MongoDB conversion analysis weighing embedding against referencing for every relationship.
+      </p>
+      <div class="hero-card">
+        <div class="hero-card-label">PROJECT INFO</div>
+        <div class="hero-meta-row"><span>Course</span><span>IS 455</span></div>
+        <div class="hero-meta-row"><span>Team size</span><span>4</span></div>
+        <div class="hero-meta-row"><span>Database engine</span><span>MySQL → MongoDB</span></div>
+        <div class="hero-meta-row"><span>Tables</span><span>20, verified to 3NF</span></div>
+      </div>
+    </div>
+
+    <div class="hero-stat-strip">
+      <div class="stat-cell"><span class="num display">20</span><span class="lab">Normalized tables, 1NF to 3NF</span></div>
+      <div class="stat-cell"><span class="num display">3</span><span class="lab">User roles, disjoint specialization</span></div>
+      <div class="stat-cell"><span class="num display">10</span><span class="lab">SQL queries, joins to subqueries</span></div>
+      <div class="stat-cell"><span class="num display">5</span><span class="lab">Embed vs. reference decisions in MongoDB</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SCENARIO ============ -->
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow">01 / The Scenario</span>
+    <h2 class="section-title display">One platform, three roles, one database that has to hold all of it together.</h2>
+    <p class="section-dek">StreamSphere Inc. runs a streaming platform that's also a creator economy: viewers consume movies, TV shows, and short clips, while independent creators upload and monetize their own content. The database has to support both halves at once: subscription billing and viewing analytics for viewers, follower counts and content performance for creators, and platform-wide oversight for admins, without duplicating data across any of them.</p>
+
+    <div class="role-grid">
+      <div class="role-card">
+        <span class="role-index">01 / 03</span>
+        <div class="role-card-inner">
+          <span class="role-tag">Viewer</span>
+          <h4>Browse, watch, subscribe</h4>
+          <p>Tracks account status, preferred language, subscription tier, payment history, and a full viewing log with completion percentages down to the session.</p>
+        </div>
+      </div>
+      <div class="role-card">
+        <span class="role-index">02 / 03</span>
+        <div class="role-card-inner">
+          <span class="role-tag">Creator</span>
+          <h4>Upload, grow, get paid</h4>
+          <p>Channel description, follower count, and verification status sit on the creator record, linked to every piece of content they've published.</p>
+        </div>
+      </div>
+      <div class="role-card">
+        <span class="role-index">03 / 03</span>
+        <div class="role-card-inner">
+          <span class="role-tag">Admin</span>
+          <h4>Monitor the whole platform</h4>
+          <p>Department, job title, and hire date identify the admin, who can run analytical queries across every entity for operational oversight.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EERD / SCHEMA ============ -->
+<section class="section" id="schema">
+  <div class="wrap">
+    <span class="eyebrow">02 / Conceptual Design</span>
+    <h2 class="section-title display">USER and CONTENT carry the whole schema on their backs.</h2>
+    <p class="section-dek">The EERD centers on two supertypes. USER splits into Viewer, Creator, and Administrator through a disjoint, total specialization, every user has exactly one role, no exceptions. CONTENT splits into Movies, TV Shows, and Short Clips the same way, each with its own type-specific attributes layered on a shared core.</p>
+
+    <div class="kit-grid-2">
+      <div class="kit-card">
+        <h4>USER → Viewer / Creator / Administrator</h4>
+        <p>Specialization is implemented with shared primary keys: VIEWER, CREATOR, and ADMINISTRATOR each use <code>user_ID</code> as both their own primary key and a foreign key back to USER. No role-specific column ever touches the base USER table.</p>
+      </div>
+      <div class="kit-card">
+        <h4>CONTENT → Movies / TV Shows / Short Clips</h4>
+        <p>Same pattern. Title, language, release date, and description live once in CONTENT. Duration and rating belong only to MOVIES; season-and-episode hierarchy and a self-referencing spin-off link belong only to TV_SHOWS.</p>
+      </div>
+    </div>
+
+    <div class="kit-grid-2">
+      <div class="kit-card">
+        <h4>TV Show Hierarchy</h4>
+        <p>TV_SHOWS contains SEASONS, and each SEASON contains EPISODES. An episode can't exist without its parent season, and a season can't exist without its parent show, a strict three-level chain enforced through foreign keys at every level.</p>
+      </div>
+      <div class="kit-card">
+        <h4>Actors, Resolved Properly</h4>
+        <p>Actors appear across both movies and TV shows, a genuine many-to-many relationship on both sides. Resolved through two junction tables, MOVIE_ACTORS and TV_ACTORS, rather than direct foreign keys on the ACTORS table itself. More on why that mattered below.</p>
+      </div>
+    </div>
+
+    <div class="kit-lede">
+      Two multivalued attributes got pulled out into their own tables rather than crammed into a single column: a content item's genres go into CONTENT_GENRE (a content item can carry more than one), and a user's contact numbers go into USER_CONTACT. Keeping these atomic is what 1NF actually requires.
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCHEMA REVISION ============ -->
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow">03 / Caught During Implementation</span>
+    <h2 class="section-title display">A design mistake that only showed up once we tried to populate it.</h2>
+    <p class="section-dek">The first version of ACTORS had two foreign key columns sitting directly on the table: <code>Movie_id</code> and <code>TV_show_id</code>. It worked, right up until we tried to insert an actor who appears in more than one show. The design quietly assumed every actor appears in at most one movie and one TV show, which falls apart the moment a real cast list does.</p>
+
+    <div class="kit-grid-2">
+      <div class="kit-card">
+        <h4>What broke</h4>
+        <p>An actor with two TV credits has nowhere to put the second one. The schema can only point each actor row at a single movie and a single show, full stop.</p>
+      </div>
+      <div class="kit-card">
+        <h4>What we changed</h4>
+        <p>Dropped both foreign keys off ACTORS with <code>ALTER TABLE</code>, then introduced MOVIE_ACTORS and TV_ACTORS as proper many-to-many junction tables. The migration is in the submitted SQL file as an explicit, visible step, not silently folded into the original schema.</p>
+      </div>
+    </div>
+
+    <div class="code-block">
+<span class="cm">-- migrate ACTORS to many-to-many junction tables</span><br>
+<span class="kw">ALTER TABLE</span> ACTORS <span class="kw">DROP FOREIGN KEY</span> fk_actor_movie;<br>
+<span class="kw">ALTER TABLE</span> ACTORS <span class="kw">DROP FOREIGN KEY</span> fk_actor_tvshow;<br>
+<span class="kw">ALTER TABLE</span> ACTORS <span class="kw">DROP COLUMN</span> Movie_id;<br>
+<span class="kw">ALTER TABLE</span> ACTORS <span class="kw">DROP COLUMN</span> TV_show_id;<br>
+<br>
+<span class="kw">CREATE TABLE</span> MOVIE_ACTORS (<br>
+&nbsp;&nbsp;content_ID <span class="kw">INT NOT NULL</span>,<br>
+&nbsp;&nbsp;Actor_id <span class="kw">INT NOT NULL</span>,<br>
+&nbsp;&nbsp;<span class="kw">PRIMARY KEY</span> (content_ID, Actor_id)<br>
+);
+    </div>
+
+    <p style="font-size:.88rem; color:var(--muted); line-height:1.7;">This is the kind of fix that's invisible in a polished final diagram and very visible the moment you try to load real data through it. I wanted it documented as its own step rather than quietly cleaned up, since the team's actual design process included getting this wrong first.</p>
+  </div>
+</section>
+
+<!-- ============ TABLE CATALOG ============ -->
+<section class="section" id="catalog">
+  <div class="wrap">
+    <span class="eyebrow">04 / The Catalog</span>
+    <h2 class="section-title display">All 20 tables, browsable like a content library.</h2>
+    <p class="section-dek">Click any table to see its columns, keys, and the normal-form reasoning behind it. Grouped the way the report groups them: user and role, content, cast, viewing activity, and subscription and payments.</p>
+
+    <div class="catalog-row-label">
+      <h3>User & Role Tables</h3>
+      <span>5 tables</span>
+    </div>
+    <div class="tile-grid" id="grid-user">
+
+      <div class="tile" data-tile="user-1" onclick="toggleTile('user-1', 'grid-user')">
+        <div class="tile-banner"><span class="tile-icon">👤</span><span class="tile-badge pk">PK: user_ID</span></div>
+        <div class="tile-body">
+          <div class="tile-title">USER</div><div class="tile-meta">supertype · 15 rows</div>
+          <div class="tile-cols"><span class="tile-col-chip">first_name</span><span class="tile-col-chip">email</span><span class="tile-col-chip">username</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile" data-tile="user-2" onclick="toggleTile('user-2', 'grid-user')">
+        <div class="tile-banner"><span class="tile-icon">📇</span><span class="tile-badge pk">PK: contact_ID</span></div>
+        <div class="tile-body">
+          <div class="tile-title">USER_CONTACT</div><div class="tile-meta">multivalued extract</div>
+          <div class="tile-cols"><span class="tile-col-chip">contact_number</span><span class="tile-col-chip">user_ID</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile" data-tile="user-3" onclick="toggleTile('user-3', 'grid-user')">
+        <div class="tile-banner"><span class="tile-icon">🎬</span><span class="tile-badge pk">PK/FK: Viewer_id</span></div>
+        <div class="tile-body">
+          <div class="tile-title">VIEWER</div><div class="tile-meta">specialization · 5 rows</div>
+          <div class="tile-cols"><span class="tile-col-chip">account_status</span><span class="tile-col-chip">prefered_language</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile" data-tile="user-4" onclick="toggleTile('user-4', 'grid-user')">
+        <div class="tile-banner"><span class="tile-icon">📡</span><span class="tile-badge pk">PK/FK: Creator_ID</span></div>
+        <div class="tile-body">
+          <div class="tile-title">CREATOR</div><div class="tile-meta">specialization · 5 rows</div>
+          <div class="tile-cols"><span class="tile-col-chip">Followers</span><span class="tile-col-chip">Verified</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile" data-tile="user-5" onclick="toggleTile('user-5', 'grid-user')">
+        <div class="tile-banner"><span class="tile-icon">🛠️</span><span class="tile-badge pk">PK/FK: Admin_ID</span></div>
+        <div class="tile-body">
+          <div class="tile-title">ADMINISTRATOR</div><div class="tile-meta">specialization · 5 rows</div>
+          <div class="tile-cols"><span class="tile-col-chip">department</span><span class="tile-col-chip">hire_date</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile-detail" id="detail-user-1">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">The supertype every role hangs off. Stores only what's common to all users, first/last name, unique username, unique email, date of birth, joining date, nothing role-specific ever lands here.</div>
+          <div class="kit-grid-2">
+            <div class="kit-card"><h4>Columns</h4><ul><li><strong>user_ID</strong> · INT, PK, AUTO_INCREMENT</li><li>first_name, last_name · VARCHAR(100)</li><li>username, email · VARCHAR, UNIQUE</li><li>date_of_birth, Joining_date · DATE</li></ul></div>
+            <div class="kit-card"><h4>Why it's normalized</h4><p>Single-column PK satisfies 2NF automatically. Every attribute is a direct, independent property of the user, no non-key column is derived from another, satisfying 3NF.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tile-detail" id="detail-user-2">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">Contact numbers are multivalued, a user can list more than one. Storing them as a list inside USER would violate 1NF, so each number gets its own row here instead.</div>
+          <div class="kit-card"><h4>Columns</h4><p><strong>contact_ID</strong> (PK, AUTO_INCREMENT) · contact_number (VARCHAR) · user_ID (FK → USER)</p></div>
+        </div>
+      </div>
+
+      <div class="tile-detail" id="detail-user-3">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">Viewer-specific data only. account_status and prefered_language are each independent of one another, neither determines the other, so 3NF holds without extra work.</div>
+          <div class="kit-card"><h4>Columns</h4><p><strong>Viewer_id</strong> (PK, FK → USER) · account_status (VARCHAR) · prefered_language (VARCHAR)</p></div>
+        </div>
+      </div>
+
+      <div class="tile-detail" id="detail-user-4">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">Channel metadata that belongs to the creator role specifically. A creator's follower count says nothing about their verification status, and vice versa, no indirect dependency between them.</div>
+          <div class="kit-card"><h4>Columns</h4><p><strong>Creator_ID</strong> (PK, FK → USER) · Channel_desc (TEXT) · Followers (INT, default 0) · Verified (TINYINT(1), default 0)</p></div>
+        </div>
+      </div>
+
+      <div class="tile-detail" id="detail-user-5">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">Job title, department, and hire date describe the admin role only. None of these are visible to or shared with VIEWER or CREATOR.</div>
+          <div class="kit-card"><h4>Columns</h4><p><strong>Admin_ID</strong> (PK, FK → USER) · department, job_title (VARCHAR) · hire_date (DATE)</p></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="catalog-row-label" style="margin-top: 3rem;">
+      <h3>Content Tables</h3>
+      <span>7 tables</span>
+    </div>
+    <div class="tile-grid" id="grid-content">
+
+      <div class="tile" data-tile="c-1" onclick="toggleTile('c-1', 'grid-content')">
+        <div class="tile-banner"><span class="tile-icon">🎞️</span><span class="tile-badge pk">PK: content_ID</span></div>
+        <div class="tile-body">
+          <div class="tile-title">CONTENT</div><div class="tile-meta">supertype · 15 rows</div>
+          <div class="tile-cols"><span class="tile-col-chip">title</span><span class="tile-col-chip">release_date</span><span class="tile-col-chip">creator_ID</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile" data-tile="c-2" onclick="toggleTile('c-2', 'grid-content')">
+        <div class="tile-banner"><span class="tile-icon">🏷️</span><span class="tile-badge pk">composite PK</span></div>
+        <div class="tile-body">
+          <div class="tile-title">CONTENT_GENRE</div><div class="tile-meta">multivalued extract</div>
+          <div class="tile-cols"><span class="tile-col-chip">content_ID</span><span class="tile-col-chip">genre</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile" data-tile="c-3" onclick="toggleTile('c-3', 'grid-content')">
+        <div class="tile-banner"><span class="tile-icon">🎥</span><span class="tile-badge pk">PK/FK: content_ID</span></div>
+        <div class="tile-body">
+          <div class="tile-title">MOVIES</div><div class="tile-meta">specialization · 5 rows</div>
+          <div class="tile-cols"><span class="tile-col-chip">duration</span><span class="tile-col-chip">rating</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile" data-tile="c-4" onclick="toggleTile('c-4', 'grid-content')">
+        <div class="tile-banner"><span class="tile-icon">📺</span><span class="tile-badge pk">PK/FK: content_ID</span></div>
+        <div class="tile-body">
+          <div class="tile-title">TV_SHOWS</div><div class="tile-meta">specialization · 5 rows</div>
+          <div class="tile-cols"><span class="tile-col-chip">ratings</span><span class="tile-col-chip">spin_off</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile" data-tile="c-5" onclick="toggleTile('c-5', 'grid-content')">
+        <div class="tile-banner"><span class="tile-icon">📱</span><span class="tile-badge pk">PK/FK: content_ID</span></div>
+        <div class="tile-body">
+          <div class="tile-title">SHORT_CLIPS</div><div class="tile-meta">specialization · 5 rows</div>
+          <div class="tile-cols"><span class="tile-col-chip">length</span><span class="tile-col-chip">likes</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile" data-tile="c-6" onclick="toggleTile('c-6', 'grid-content')">
+        <div class="tile-banner"><span class="tile-icon">📂</span><span class="tile-badge pk">PK: season_id</span></div>
+        <div class="tile-body">
+          <div class="tile-title">SEASONS</div><div class="tile-meta">TV show hierarchy</div>
+          <div class="tile-cols"><span class="tile-col-chip">Number</span><span class="tile-col-chip">content_ID</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile" data-tile="c-7" onclick="toggleTile('c-7', 'grid-content')">
+        <div class="tile-banner"><span class="tile-icon">🎟️</span><span class="tile-badge pk">PK: Episode_id</span></div>
+        <div class="tile-body">
+          <div class="tile-title">EPISODE</div><div class="tile-meta">TV show hierarchy</div>
+          <div class="tile-cols"><span class="tile-col-chip">Length</span><span class="tile-col-chip">season_id</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile-detail" id="detail-c-1">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">The shared core for every piece of content on the platform, regardless of type. title, publish_status, release_date, language, and content_desc all live here exactly once.</div>
+          <div class="kit-card"><h4>Columns</h4><p><strong>content_ID</strong> (PK, AUTO_INCREMENT) · title (VARCHAR 255) · publish_status, language (VARCHAR) · release_date (DATE) · content_desc (TEXT) · creator_ID (FK → CREATOR)</p></div>
+        </div>
+      </div>
+
+      <div class="tile-detail" id="detail-c-2">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">A content item can carry more than one genre, so genre couldn't stay a single column on CONTENT without breaking 1NF. One row per genre per title instead.</div>
+          <div class="kit-card"><h4>Columns</h4><p>content_ID (FK → CONTENT) · genre (VARCHAR) · composite PK: (content_ID, genre)</p></div>
+        </div>
+      </div>
+
+      <div class="tile-detail" id="detail-c-3">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">Movie-only attributes. duration and rating are independent descriptors, neither one determines the other.</div>
+          <div class="kit-card"><h4>Columns</h4><p>content_ID (PK, FK → CONTENT) · duration (INT, minutes) · rating (VARCHAR, e.g. PG-13)</p></div>
+        </div>
+      </div>
+
+      <div class="tile-detail" id="detail-c-4">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">Carries an audience rating and a nullable, self-referencing spin_off foreign key back to CONTENT itself, the mechanism that lets one show point at another as its spin-off.</div>
+          <div class="kit-card"><h4>Columns</h4><p>content_ID (PK, FK → CONTENT) · ratings (DECIMAL 3,1) · spin_off (nullable FK → CONTENT)</p></div>
+        </div>
+      </div>
+
+      <div class="tile-detail" id="detail-c-5">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">The lightest of the three content specializations. length and likes describe the clip and nothing else.</div>
+          <div class="kit-card"><h4>Columns</h4><p>content_ID (PK, FK → CONTENT) · length (INT, seconds) · likes (INT, default 0)</p></div>
+        </div>
+      </div>
+
+      <div class="tile-detail" id="detail-c-6">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">First level of the TV show hierarchy. A season can't exist without its parent show, enforced by the FK back to TV_SHOWS, not just assumed by convention.</div>
+          <div class="kit-card"><h4>Columns</h4><p>season_id (PK, AUTO_INCREMENT) · Number (INT) · content_ID (FK → TV_SHOWS)</p></div>
+        </div>
+      </div>
+
+      <div class="tile-detail" id="detail-c-7">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">Second level. An episode cannot exist independently of its season, the same enforced-not-assumed pattern as SEASONS one level up.</div>
+          <div class="kit-card"><h4>Columns</h4><p>Episode_id (PK, AUTO_INCREMENT) · Number, Length (INT) · season_id (FK → SEASONS)</p></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="catalog-row-label" style="margin-top: 3rem;">
+      <h3>Cast Tables</h3>
+      <span>3 tables</span>
+    </div>
+    <div class="tile-grid" id="grid-cast">
+
+      <div class="tile" data-tile="ca-1" onclick="toggleTile('ca-1', 'grid-cast')">
+        <div class="tile-banner"><span class="tile-icon">🎭</span><span class="tile-badge pk">PK: Actor_id</span></div>
+        <div class="tile-body">
+          <div class="tile-title">ACTORS</div><div class="tile-meta">revised mid-build</div>
+          <div class="tile-cols"><span class="tile-col-chip">Name</span><span class="tile-col-chip">Gender</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile" data-tile="ca-2" onclick="toggleTile('ca-2', 'grid-cast')">
+        <div class="tile-banner"><span class="tile-icon">🔗</span><span class="tile-badge pk">composite PK</span></div>
+        <div class="tile-body">
+          <div class="tile-title">MOVIE_ACTORS</div><div class="tile-meta">junction table</div>
+          <div class="tile-cols"><span class="tile-col-chip">content_ID</span><span class="tile-col-chip">Actor_id</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile" data-tile="ca-3" onclick="toggleTile('ca-3', 'grid-cast')">
+        <div class="tile-banner"><span class="tile-icon">🔗</span><span class="tile-badge pk">composite PK</span></div>
+        <div class="tile-body">
+          <div class="tile-title">TV_ACTORS</div><div class="tile-meta">junction table</div>
+          <div class="tile-cols"><span class="tile-col-chip">Actor_id</span><span class="tile-col-chip">content_ID</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile-detail" id="detail-ca-1">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">Originally carried direct FK columns to MOVIES and TV_SHOWS, revised during implementation once that design couldn't represent an actor in two shows. See the schema revision above for the full story.</div>
+          <div class="kit-card"><h4>Columns (current)</h4><p>Actor_id (PK, AUTO_INCREMENT) · Name (VARCHAR) · Gender (VARCHAR)</p></div>
+        </div>
+      </div>
+
+      <div class="tile-detail" id="detail-ca-2">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">Resolves the real many-to-many relationship between movies and actors. No extra attributes, so all three normal forms hold trivially.</div>
+          <div class="kit-card"><h4>Columns</h4><p>content_ID (FK → MOVIES) · Actor_id (FK → ACTORS) · composite PK: (content_ID, Actor_id)</p></div>
+        </div>
+      </div>
+
+      <div class="tile-detail" id="detail-ca-3">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">Same pattern, the TV show side. An actor can appear in any number of shows, and a show can credit any number of actors.</div>
+          <div class="kit-card"><h4>Columns</h4><p>Actor_id (FK → ACTORS) · content_ID (FK → TV_SHOWS) · composite PK: (Actor_id, content_ID)</p></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="catalog-row-label" style="margin-top: 3rem;">
+      <h3>Viewing Activity Tables</h3>
+      <span>3 tables</span>
+    </div>
+    <div class="tile-grid" id="grid-activity">
+
+      <div class="tile" data-tile="va-1" onclick="toggleTile('va-1', 'grid-activity')">
+        <div class="tile-banner"><span class="tile-icon">📊</span><span class="tile-badge pk">PK: history_ID</span></div>
+        <div class="tile-body">
+          <div class="tile-title">HISTORY</div><div class="tile-meta">nullable completion %</div>
+          <div class="tile-cols"><span class="tile-col-chip">watch_timestamp</span><span class="tile-col-chip">completion_percent</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile" data-tile="va-2" onclick="toggleTile('va-2', 'grid-activity')">
+        <div class="tile-banner"><span class="tile-icon">▶️</span><span class="tile-badge pk">composite PK</span></div>
+        <div class="tile-body">
+          <div class="tile-title">CONTENT_CONSUMPTION</div><div class="tile-meta">junction table</div>
+          <div class="tile-cols"><span class="tile-col-chip">viewer_ID</span><span class="tile-col-chip">consumed_at</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile" data-tile="va-3" onclick="toggleTile('va-3', 'grid-activity')">
+        <div class="tile-banner"><span class="tile-icon">👥</span><span class="tile-badge pk">composite PK</span></div>
+        <div class="tile-body">
+          <div class="tile-title">WATCHED</div><div class="tile-meta">shared-account bridge</div>
+          <div class="tile-cols"><span class="tile-col-chip">viewer_id</span><span class="tile-col-chip">history_id</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile-detail" id="detail-va-1">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">One row per watch session. completion_percent is deliberately nullable: Mecha Rising in the seed data carries a NULL value, representing a session that ended before any progress was logged.</div>
+          <div class="kit-card"><h4>Columns</h4><p>history_ID (PK, AUTO_INCREMENT) · watch_timestamp (DATETIME) · completion_percent (DECIMAL 5,2, nullable) · user_ID (FK → USER) · content_ID (FK → CONTENT)</p></div>
+        </div>
+      </div>
+
+      <div class="tile-detail" id="detail-va-2">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">Records that a specific viewer consumed a specific content item at a specific time. The one non-key attribute, consumed_at, depends on both halves of the composite key together, which is exactly what 2NF requires.</div>
+          <div class="kit-card"><h4>Columns</h4><p>viewer_ID, content_ID (FKs) · consumed_at (DATETIME) · composite PK: (viewer_ID, content_ID)</p></div>
+        </div>
+      </div>
+
+      <div class="tile-detail" id="detail-va-3">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">Added specifically to support shared accounts, where more than one viewer profile might reference the same history record. A pure bridge table with no attributes of its own.</div>
+          <div class="kit-card"><h4>Columns</h4><p>viewer_id, history_id (FKs) · composite PK: (viewer_id, history_id)</p></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="catalog-row-label" style="margin-top: 3rem;">
+      <h3>Subscription & Payment Tables</h3>
+      <span>2 tables</span>
+    </div>
+    <div class="tile-grid" id="grid-sub">
+
+      <div class="tile" data-tile="s-1" onclick="toggleTile('s-1', 'grid-sub')">
+        <div class="tile-banner"><span class="tile-icon">💳</span><span class="tile-badge pk">PK: plan_ID</span></div>
+        <div class="tile-body">
+          <div class="tile-title">SUBSCRIPTION_PLAN</div><div class="tile-meta">1 active plan / viewer</div>
+          <div class="tile-cols"><span class="tile-col-chip">monthly_fee</span><span class="tile-col-chip">max_vid_qual</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile" data-tile="s-2" onclick="toggleTile('s-2', 'grid-sub')">
+        <div class="tile-banner"><span class="tile-icon">🧾</span><span class="tile-badge pk">PK: pay_ID</span></div>
+        <div class="tile-body">
+          <div class="tile-title">PAYMENT</div><div class="tile-meta">immutable once recorded</div>
+          <div class="tile-cols"><span class="tile-col-chip">amount</span><span class="tile-col-chip">pay_status</span></div>
+        </div>
+        <div class="tile-expand-arrow">+</div>
+      </div>
+
+      <div class="tile-detail" id="detail-s-1">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">Three real pricing tiers in the seed data: $9.99 for 1080p single-stream, $14.99 for 4K with two streams, $19.99 for 4K HDR with four streams. Each viewer holds exactly one active plan at a time, by design assumption.</div>
+          <div class="kit-card"><h4>Columns</h4><p>plan_ID (PK, AUTO_INCREMENT) · subs_ID, monthly_fee, max_streams, max_vid_qual (various) · subscription_start_date, subscription_end_date (DATE) · Viewer_id (FK → VIEWER)</p></div>
+        </div>
+      </div>
+
+      <div class="tile-detail" id="detail-s-2">
+        <div class="tile-detail-inner">
+          <div class="kit-lede">Every transaction, success or failure. The seed data includes a Failed payment by Debit Card alongside four Completed ones, on purpose, to prove the schema records unsuccessful transactions too, not just clean ones.</div>
+          <div class="kit-card"><h4>Columns</h4><p>pay_ID (PK, AUTO_INCREMENT) · amount (DECIMAL 10,2) · pay_date (DATE) · pay_method, pay_status (VARCHAR) · user_ID (FK → USER)</p></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ NORMALIZATION ============ -->
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow">05 / Normalization</span>
+    <h2 class="section-title display">Every table, checked against three rules, not assumed.</h2>
+    <p class="section-dek">Normalization isn't a formality you wave at, it's the thing that decides whether a value lives in exactly one place. Each of the 20 tables was checked against all three rules individually before the schema was called done.</p>
+
+    <div class="nf-track">
+      <div class="nf-stage">
+        <span class="nf-tag">RULE 01</span>
+        <div class="nf-title display">1NF</div>
+        <p>Every attribute holds one atomic value, no repeating groups in any row. This is exactly why genres got their own table (CONTENT_GENRE) and contact numbers got theirs (USER_CONTACT): both are naturally multivalued, and cramming either into a single column would have broken atomicity immediately.</p>
+      </div>
+      <div class="nf-stage">
+        <span class="nf-tag">RULE 02</span>
+        <div class="nf-title display">2NF</div>
+        <p>Only relevant for tables with composite keys, five of them here: CONTENT_GENRE, CONTENT_CONSUMPTION, WATCHED, MOVIE_ACTORS, TV_ACTORS. Four are pure junctions with no extra attributes, so there's nothing to check. CONTENT_CONSUMPTION's one extra column, consumed_at, depends on both key columns together, which is the definition of compliance.</p>
+      </div>
+      <div class="nf-stage">
+        <span class="nf-tag">RULE 03</span>
+        <div class="nf-title display">3NF</div>
+        <p>No non-key attribute can be determined by another non-key attribute. Subscription pricing lives only in SUBSCRIPTION_PLAN, never copied onto VIEWER. Title and language live only in CONTENT, never duplicated into MOVIES, TV_SHOWS, or SHORT_CLIPS. Checked table by table, all twenty pass.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SQL QUERIES ============ -->
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow">06 / SQL Queries</span>
+    <h2 class="section-title display">Ten queries. Three of them actually run the platform.</h2>
+    <p class="section-dek">All ten queries together cover INNER JOIN, LEFT OUTER JOIN, aggregates with GROUP BY, HAVING, and correlated subqueries. These three were picked out specifically because they map to a real decision someone on the platform would make, not just a SQL feature being demonstrated.</p>
+
+    <div class="kit-card" style="margin-bottom: 1.25rem;">
+      <h4>Query 02 · Creator Follower Ranking with Content Volume</h4>
+      <div class="code-block">
+<span class="kw">SELECT</span> u.first_name, u.last_name, c.Followers,<br>
+&nbsp;&nbsp;<span class="fn">COUNT</span>(co.content_ID) <span class="kw">AS</span> total_content<br>
+<span class="kw">FROM</span> USER u<br>
+<span class="kw">INNER JOIN</span> CREATOR c <span class="kw">ON</span> u.user_ID = c.Creator_ID<br>
+<span class="kw">INNER JOIN</span> CONTENT co <span class="kw">ON</span> c.Creator_ID = co.creator_ID<br>
+<span class="kw">GROUP BY</span> u.user_ID, u.first_name, u.last_name, c.Followers<br>
+<span class="kw">ORDER BY</span> c.Followers <span class="kw">DESC</span>;
+      </div>
+      <p style="font-size:.85rem; color:var(--muted); line-height:1.6;">Feeds the Creator Leaderboard. <strong style="color:var(--text);">Who sees it:</strong> platform admins and the creator partnership team. <strong style="color:var(--text);">Decision it supports:</strong> which creators qualify for verified status, homepage featuring, or partnership agreements, and which ones have a big following but low upload volume worth targeting with incentives.</p>
+    </div>
+
+    <div class="kit-card" style="margin-bottom: 1.25rem;">
+      <h4>Query 04 · Content Engagement: Average Completion Rate and View Count</h4>
+      <div class="code-block">
+<span class="kw">SELECT</span> co.title,<br>
+&nbsp;&nbsp;<span class="fn">ROUND</span>(<span class="fn">AVG</span>(h.completion_percent), 2) <span class="kw">AS</span> avg_completion,<br>
+&nbsp;&nbsp;<span class="fn">COUNT</span>(h.history_ID) <span class="kw">AS</span> total_views<br>
+<span class="kw">FROM</span> CONTENT co<br>
+<span class="kw">INNER JOIN</span> HISTORY h <span class="kw">ON</span> co.content_ID = h.content_ID<br>
+<span class="kw">GROUP BY</span> co.content_ID, co.title<br>
+<span class="kw">ORDER BY</span> avg_completion <span class="kw">DESC</span>;
+      </div>
+      <p style="font-size:.85rem; color:var(--muted); line-height:1.6;"><strong style="color:var(--text);">Who sees it:</strong> the content operations team, and creators through their own analytics view. <strong style="color:var(--text);">Decision it supports:</strong> low-completion titles (Code Breakers at 45%) can get flagged for editorial review or ranked lower in recommendations; high-completion titles (Neon Horizon and Shadow Protocol, both at 100%) get prioritized in Continue Watching.</p>
+    </div>
+
+    <div class="kit-card" style="margin-bottom: 1.5rem;">
+      <h4>Query 09 · Above-Average Rated TV Shows with Cast</h4>
+      <div class="code-block">
+<span class="kw">SELECT</span> co.title, ts.ratings,<br>
+&nbsp;&nbsp;<span class="fn">COUNT</span>(ta.Actor_id) <span class="kw">AS</span> actor_count,<br>
+&nbsp;&nbsp;<span class="fn">GROUP_CONCAT</span>(a.Name <span class="kw">ORDER BY</span> a.Name <span class="kw">SEPARATOR</span> ', ') <span class="kw">AS</span> cast<br>
+<span class="kw">FROM</span> CONTENT co<br>
+<span class="kw">INNER JOIN</span> TV_SHOWS ts <span class="kw">ON</span> co.content_ID = ts.content_ID<br>
+<span class="kw">LEFT JOIN</span> TV_ACTORS ta <span class="kw">ON</span> ts.content_ID = ta.content_ID<br>
+<span class="kw">LEFT JOIN</span> ACTORS a <span class="kw">ON</span> ta.Actor_id = a.Actor_id<br>
+<span class="kw">WHERE</span> ts.ratings &gt; (<span class="kw">SELECT AVG</span>(ratings) <span class="kw">FROM</span> TV_SHOWS)<br>
+<span class="kw">GROUP BY</span> co.content_ID, co.title, ts.ratings<br>
+<span class="kw">HAVING COUNT</span>(ta.Actor_id) &gt;= 1<br>
+<span class="kw">ORDER BY</span> ts.ratings <span class="kw">DESC</span>;
+      </div>
+      <p style="font-size:.85rem; color:var(--muted); line-height:1.6;">Combines a rating threshold with cast aggregation in one pass. <strong style="color:var(--text);">Application:</strong> populates Trending TV and Featured Cast on the homepage. <strong style="color:var(--text);">Who uses it:</strong> viewers browsing recommendations, and editors curating featured placements.</p>
+    </div>
+
+    <div class="pill-row">
+      <span class="pill glow">INNER JOIN</span>
+      <span class="pill glow">LEFT OUTER JOIN</span>
+      <span class="pill mint">GROUP BY + HAVING</span>
+      <span class="pill mint">Correlated subqueries</span>
+      <span class="pill live">GROUP_CONCAT</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MONGODB ============ -->
+<section class="section" id="mongo">
+  <div class="wrap">
+    <span class="eyebrow">07 / MongoDB Conversion</span>
+    <h2 class="section-title display">Same data, a different question for every relationship.</h2>
+    <p class="section-dek">A relational schema resolves every relationship the same way: a join. MongoDB doesn't, so each relationship has to be decided individually between embedding it inside the parent document or referencing it from a separate collection. We ran every one of these five decisions through the same three questions.</p>
+
+    <div class="kit-grid-3" style="margin-bottom: 2rem;">
+      <div class="kit-card"><h4>Question 01</h4><p>Do we usually access the data together?</p></div>
+      <div class="kit-card"><h4>Question 02</h4><p>Is the data mostly used within a small number of documents?</p></div>
+      <div class="kit-card"><h4>Question 03</h4><p>Is the embedded data bounded in size?</p></div>
+    </div>
+
+    <div class="mongo-decision">
+      <div class="mongo-decision-head">
+        <h4>TV_SHOWS ↔ SEASONS ↔ EPISODES</h4>
+        <span class="pill mint">Embedded</span>
+      </div>
+      <div class="mongo-criteria">
+        <div class="mc"><strong>Co-access</strong>The show detail page renders seasons and episodes in one view, always together.</div>
+        <div class="mc"><strong>Document scope</strong>Each episode belongs to exactly one season, each season to exactly one show. Never shared.</div>
+        <div class="mc"><strong>Boundedness</strong>The number of seasons and episodes per show is fixed at publication. Predictable size.</div>
+      </div>
+    </div>
+
+    <div class="mongo-decision">
+      <div class="mongo-decision-head">
+        <h4>VIEWER ↔ SUBSCRIPTION_PLAN</h4>
+        <span class="pill mint">Embedded</span>
+      </div>
+      <div class="mongo-criteria">
+        <div class="mc"><strong>Co-access</strong>Checked on every authenticated request for quality tier and stream-limit enforcement.</div>
+        <div class="mc"><strong>Document scope</strong>Exactly one active plan per viewer, never shared across documents.</div>
+        <div class="mc"><strong>Boundedness</strong>A single fixed-size sub-document. Its size never grows over time.</div>
+      </div>
+    </div>
+
+    <div class="mongo-decision">
+      <div class="mongo-decision-head">
+        <h4>VIEWER ↔ HISTORY and PAYMENT</h4>
+        <span class="pill live">Referenced</span>
+      </div>
+      <div class="mongo-criteria">
+        <div class="mc"><strong>Co-access</strong>Only pulled on the Watch History or Billing pages specifically, not on every profile load.</div>
+        <div class="mc"><strong>Document scope</strong>Spans many sessions and billing cycles, not scoped to a small set.</div>
+        <div class="mc"><strong>Boundedness</strong>Grows indefinitely for the life of the account. Embedding would make VIEWER documents balloon over time.</div>
+      </div>
+    </div>
+
+    <div class="mongo-decision">
+      <div class="mongo-decision-head">
+        <h4>CONTENT ↔ ACTORS</h4>
+        <span class="pill live">Referenced</span>
+      </div>
+      <div class="mongo-criteria">
+        <div class="mc"><strong>Co-access</strong>Content metadata is usually loaded without needing cast details at all.</div>
+        <div class="mc"><strong>Document scope</strong>One actor appears across many titles. Embedding would mean duplicating their profile into every one.</div>
+        <div class="mc"><strong>Boundedness</strong>An actor's filmography grows as new content publishes. Open-ended, not fixed.</div>
+      </div>
+    </div>
+
+    <div class="mongo-decision">
+      <div class="mongo-decision-head">
+        <h4>CONTENT ↔ CREATOR</h4>
+        <span class="pill live">Referenced</span>
+      </div>
+      <div class="mongo-criteria">
+        <div class="mc"><strong>Co-access</strong>Creator profile pages are visited independently of any specific content item.</div>
+        <div class="mc"><strong>Document scope</strong>Shared across every item that creator has ever uploaded.</div>
+        <div class="mc"><strong>Boundedness</strong>A creator's portfolio is open-ended and keeps growing with every new upload.</div>
+      </div>
+    </div>
+
+    <h4 style="font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--glow-bright); margin: 2rem 0 1rem;">Sample Document: TV_SHOWS with Seasons Embedded</h4>
+    <div class="code-block">
+{<br>
+&nbsp;&nbsp;"_id": ObjectId("content_11"),<br>
+&nbsp;&nbsp;"title": "Code Breakers",<br>
+&nbsp;&nbsp;"ratings": 8.4,<br>
+&nbsp;&nbsp;"creator_ref": ObjectId("creator_6"),<br>
+&nbsp;&nbsp;"actor_refs": [ObjectId("actor_1"), ObjectId("actor_3")],<br>
+&nbsp;&nbsp;"seasons": [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ "season_id": 1, "number": 1, "episodes": [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ "episode_id": 1, "number": 1, "length": 45 },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ "episode_id": 2, "number": 2, "length": 47 }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;]},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ "season_id": 2, "number": 2, "episodes": [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ "episode_id": 3, "number": 1, "length": 42 }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;]}<br>
+&nbsp;&nbsp;]<br>
+}
+    </div>
+    <p style="font-size:.83rem; color:var(--muted-dim);">creator_ref and actor_refs stay as ObjectId references; seasons and episodes nest directly inside the document. Same entity, two different strategies, each justified by the three questions above.</p>
+  </div>
+</section>
+
+<!-- ============ FRONTEND / FIGMA PROTOTYPE ============ -->
+<section class="section" id="frontend">
+  <div class="wrap">
+    <span class="eyebrow">08 / Frontend Prototype</span>
+    <h2 class="section-title display">The schema, with a UI on top of it.</h2>
+    <p class="section-dek">A working Figma prototype of the viewer and admin experience, built so every screen maps directly back to specific tables: the homepage queries CONTENT, CONTENT_GENRE, and HISTORY; the admin dashboard aggregates over USER, SUBSCRIPTION_PLAN, CONTENT, and PAYMENT.</p>
+
+    <div class="figma-cta">
+      <div class="figma-cta-left">
+        <div class="figma-cta-icon">🎨</div>
+        <div>
+          <div class="figma-cta-title">StreamSphere UI · Figma Make</div>
+          <div class="figma-cta-sub">Open the live, interactive prototype in a new tab</div>
+        </div>
+      </div>
+      <a href="https://www.figma.com/make/WdGNZmXmbWi7ElkGTd2COv/Design-StreamSphere-UI?p=f&fullscreen=1" class="figma-cta-link" target="_blank">Open in Figma ↗</a>
+    </div>
+
+    <div class="mock-tabs">
+      <button class="mock-tab active" onclick="showMock('home')">Homepage</button>
+      <button class="mock-tab" onclick="showMock('rec')">Recommendations</button>
+      <button class="mock-tab" onclick="showMock('admin')">Admin Dashboard</button>
+    </div>
+
+    <div class="mock-frame">
+
+      <!-- HOMEPAGE -->
+      <div class="mock-screen active" id="mock-home">
+        <div class="mock-hero">
+          <div class="mock-hero-tags"><span class="mock-hero-tag">Sci-Fi</span><span class="mock-hero-tag">Drama</span><span class="mock-hero-tag">Adventure</span></div>
+          <h5>The Last Frontier</h5>
+          <p>When humanity's last hope lies beyond the stars, a ragtag crew embarks on an impossible journey to save Earth from extinction.</p>
+          <div class="mock-hero-actions"><span class="mock-btn primary">▶ Watch Now</span><span class="mock-btn secondary">+ Add to Watchlist</span></div>
+        </div>
+        <div class="mock-row-label">Continue Watching</div>
+        <div class="mock-card-row">
+          <div class="mock-card"><span class="mc-time">42m</span><span class="mc-title">Cosmic Voyage</span><span class="mc-rating">★4.5</span></div>
+          <div class="mock-card"><span class="mc-time">1h 45m</span><span class="mc-title">Night City</span><span class="mc-rating">★4.8</span></div>
+          <div class="mock-card"><span class="mc-time">52m</span><span class="mc-title">Ocean Deep</span><span class="mc-rating">★4.8</span></div>
+          <div class="mock-card"><span class="mc-time">38m</span><span class="mc-title">Urban Legends</span><span class="mc-rating">★4.3</span></div>
+          <div class="mock-card"><span class="mc-time">1h 32m</span><span class="mc-title">Mountain Peak</span><span class="mc-rating">★4.7</span></div>
+          <div class="mock-card"><span class="mc-time">45m</span><span class="mc-title">Digital Dreams</span><span class="mc-rating">★4.4</span></div>
+        </div>
+        <p style="font-size:.78rem; color:var(--muted-dim); line-height:1.6;">Continue Watching pulls from HISTORY joined to CONTENT and CONTENT_GENRE, filtered to the authenticated viewer's user_ID, exactly the same join pattern as Query 4 in the SQL section above.</p>
+      </div>
+
+      <!-- RECOMMENDATIONS -->
+      <div class="mock-screen" id="mock-rec">
+        <div class="mock-row-label">Continue Watching</div>
+        <div class="mock-card-row">
+          <div class="mock-card"><span class="mc-time">42m</span><span class="mc-title">Cosmic Voyage</span><span class="mc-rating">★4.5</span></div>
+          <div class="mock-card"><span class="mc-time">1h 45m</span><span class="mc-title">Night City</span><span class="mc-rating">★4.8</span></div>
+          <div class="mock-card"><span class="mc-time">52m</span><span class="mc-title">Ocean Deep</span><span class="mc-rating">★4.8</span></div>
+          <div class="mock-card"><span class="mc-time">38m</span><span class="mc-title">Urban Legends</span><span class="mc-rating">★4.3</span></div>
+          <div class="mock-card"><span class="mc-time">1h 32m</span><span class="mc-title">Mountain Peak</span><span class="mc-rating">★4.7</span></div>
+          <div class="mock-card"><span class="mc-time">45m</span><span class="mc-title">Digital Dreams</span><span class="mc-rating">★4.4</span></div>
+        </div>
+        <div class="mock-row-label">Recommended for You</div>
+        <div class="mock-card-row">
+          <div class="mock-card"><span class="mc-time">2h 15m</span><span class="mc-title">Stellar Wars</span><span class="mc-rating">★4.6</span></div>
+          <div class="mock-card"><span class="mc-time">1h 58m</span><span class="mc-title">Code Spiral</span><span class="mc-rating">★4.2</span></div>
+          <div class="mock-card"><span class="mc-time">1h 42m</span><span class="mc-title">Wild Summit</span><span class="mc-rating">★4.9</span></div>
+          <div class="mock-card"><span class="mc-time">1h 35m</span><span class="mc-title">Open Road</span><span class="mc-rating">★4.1</span></div>
+          <div class="mock-card"><span class="mc-time">2h 5m</span><span class="mc-title">Studio Sessions</span><span class="mc-rating">★4.7</span></div>
+          <div class="mock-card"><span class="mc-time">1h 48m</span><span class="mc-title">Heartstrings</span><span class="mc-rating">★4.3</span></div>
+        </div>
+        <p style="font-size:.78rem; color:var(--muted-dim); line-height:1.6;">Recommended for You surfaces titles by matching a viewer's genre history in CONTENT_GENRE against unseen CONTENT rows, the same personalization logic the report describes for the homepage discovery flow.</p>
+      </div>
+
+      <!-- ADMIN DASHBOARD -->
+      <div class="mock-screen" id="mock-admin">
+        <div class="mock-row-label">Admin Dashboard</div>
+        <div class="mock-stat-row">
+          <div class="mock-stat"><span class="ms-icon">👥</span><span class="ms-val display">25,842</span><span class="ms-lab">Total Users</span><span class="ms-delta">+12.5% from last month</span></div>
+          <div class="mock-stat"><span class="ms-icon">💳</span><span class="ms-val display">18,234</span><span class="ms-lab">Active Subscriptions</span><span class="ms-delta">+8.2% from last month</span></div>
+          <div class="mock-stat"><span class="ms-icon">⬆️</span><span class="ms-val display">3,421</span><span class="ms-lab">Content Uploaded</span><span class="ms-delta">+15.8% from last month</span></div>
+          <div class="mock-stat"><span class="ms-icon">💰</span><span class="ms-val display">$342K</span><span class="ms-lab">Revenue This Month</span><span class="ms-delta">+18.3% from last month</span></div>
+        </div>
+        <div class="mock-chart-row">
+          <div class="mock-chart">
+            <h6>User Growth (Last 12 Months)</h6>
+            <div class="mock-bars">
+              <div class="mock-bar" style="height:25%"></div><div class="mock-bar" style="height:32%"></div><div class="mock-bar" style="height:38%"></div>
+              <div class="mock-bar" style="height:48%"></div><div class="mock-bar" style="height:55%"></div><div class="mock-bar" style="height:62%"></div>
+              <div class="mock-bar" style="height:70%"></div><div class="mock-bar" style="height:78%"></div><div class="mock-bar" style="height:85%"></div>
+              <div class="mock-bar" style="height:90%"></div><div class="mock-bar" style="height:96%"></div><div class="mock-bar" style="height:100%"></div>
+            </div>
+          </div>
+          <div class="mock-chart">
+            <h6>Most Watched Genres</h6>
+            <div class="mock-bars">
+              <div class="mock-bar" style="height:100%; background:var(--live);"></div><div class="mock-bar" style="height:86%; background:var(--live);"></div>
+              <div class="mock-bar" style="height:78%; background:var(--live);"></div><div class="mock-bar" style="height:62%; background:var(--live);"></div>
+              <div class="mock-bar" style="height:55%; background:var(--live);"></div><div class="mock-bar" style="height:42%; background:var(--live);"></div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:.78rem; color:var(--muted-dim); line-height:1.6; margin-top:1rem;">Every figure here is an aggregate query: total users from USER, active subscriptions from SUBSCRIPTION_PLAN, content volume from CONTENT, revenue from PAYMENT. Genre frequency comes from counting across CONTENT_GENRE and HISTORY together. Visible only to the ADMINISTRATOR role.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ VERDICT ============ -->
+<section class="section" id="verdict">
+  <div class="wrap">
+    <span class="eyebrow">09 / Where It Landed</span>
+    <h2 class="section-title display">A schema that holds up across two database paradigms.</h2>
+    <p class="section-dek">The relational design isn't just normalized on paper, it's implemented, populated, and queried in MySQL, and it survives translation into a document model without losing any of its logic. That's the actual test of whether a schema is sound: does it still make sense once you're forced to represent it a second way.</p>
+
+    <div class="verdict-banner">
+      <div class="verdict-tag">
+        <span class="vlabel">Final State</span>
+        <span class="vvalue display">20 Tables.<br>3NF Verified.</span>
+      </div>
+      <div class="verdict-text">
+        <p>Every table checked individually against 1NF, 2NF, and 3NF. Ten SQL queries covering the full range of required constructs, three tied directly to decisions a creator partnerships team, content ops team, or homepage editor would actually make. Five MongoDB relationships, each resolved on its own merits rather than a blanket embed-everything or reference-everything rule. One real schema mistake, caught during implementation and fixed in the open rather than smoothed over in the final write-up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<div class="about-section" id="about">
+  <div class="wrap about-inner">
+    <div>
+      <div class="about-name display">Parul<br>Mudaliar</div>
+      <div class="about-role">MS Information Management · UIUC</div>
+    </div>
+    <div>
+      <p class="about-text">I'm transitioning from a software engineering background into AI product management, and database design work like this is where that engineering instinct still shows up directly: a schema either holds together under real data or it doesn't, there's no narrative that saves a normalization violation. StreamSphere was a four-person team project for IS 455, Database Design and Prototyping, at UIUC, covering scenario and requirements, EERD, relational schema, normalization analysis, MySQL implementation, ten SQL queries, and a MongoDB conversion.</p>
+      <div class="about-links">
+        <a href="https://www.linkedin.com/in/parul-mudaliar/" class="about-link" target="_blank">LinkedIn ↗</a>
+        <a href="https://github.com/ParulMudaliar" class="about-link" target="_blank">GitHub ↗</a>
+        <a href="mailto:parulm2@illinois.edu" class="about-link">Email</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <p>© 2026 Parul Mudaliar · IS 455 Database Design and Prototyping · UIUC</p>
+    <p>StreamSphere</p>
+  </div>
+</footer>
+
+<script>
+function toggleTile(tileKey, gridId) {
+  const grid = document.getElementById(gridId);
+  const tile = grid.querySelector('[data-tile="' + tileKey + '"]');
+  const detail = document.getElementById('detail-' + tileKey);
+  const isOpen = tile.classList.contains('open');
+
+  grid.querySelectorAll('.tile').forEach(t => t.classList.remove('open'));
+  grid.querySelectorAll('.tile-detail').forEach(d => {
+    d.style.maxHeight = '0';
+    d.classList.remove('is-open');
+  });
+
+  if (!isOpen) {
+    tile.classList.add('open');
+    detail.classList.add('is-open');
+    detail.style.maxHeight = detail.scrollHeight + 'px';
+    setTimeout(() => detail.scrollIntoView({ behavior: 'smooth', block: 'center' }), 80);
+  }
+}
+
+function showMock(key) {
+  document.querySelectorAll('.mock-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.mock-screen').forEach(s => s.classList.remove('active'));
+  document.querySelector('.mock-tab[onclick="showMock(\'' + key + '\')"]').classList.add('active');
+  document.getElementById('mock-' + key).classList.add('active');
+}
+</script>
+
+</body>
+</html>

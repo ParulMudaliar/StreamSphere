@@ -27,9 +27,9 @@ StreamSphere Inc. is a streaming platform combining subscription-based content c
 
 ## Team
 
-- Parul Mudaliar (Project Manager) — `parulm2`
-- Prathamesh Mulay — `pmulay2`
-- Anisha Kango — `kango2`
-- Chaitanya Nirantar — `cn32`
+- Parul Mudaliar
+- Prathamesh Mulay
+- Anisha Kango
+- Chaitanya Nirantar
 
 IS 455, Spring 2026, University of Illinois Urbana-Champaign.

@@ -122,6 +122,25 @@
   .section-title { font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: clamp(2rem, 4.2vw, 3.2rem); line-height: 1.03; max-width: 880px; margin-bottom: 1rem; }
   .section-dek { font-size: 1rem; color: var(--muted); max-width: 640px; line-height: 1.7; margin-bottom: 3rem; }
 
+  /* ===================== PRODUCT FRAMING (DESIGN PROBLEM / CALLS / SCOPE / STATUS) ===================== */
+  .product-frame { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 2.5rem; margin-bottom: 1rem; }
+  .product-frame-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.25rem 2.5rem; }
+  .pf-block .pf-label {
+    font-family: 'JetBrains Mono', monospace; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--glow-bright); margin-bottom: .85rem; display: flex; align-items: center; gap: .5rem;
+  }
+  .pf-block .pf-label::before { content: ''; width: 16px; height: 2px; background: var(--glow); }
+  .pf-block p { font-size: .85rem; color: var(--muted); line-height: 1.65; }
+  .pf-block ul { padding-left: 1.05rem; margin-top: .25rem; }
+  .pf-block li { font-size: .85rem; color: var(--muted); line-height: 1.6; margin-bottom: .45rem; }
+  .pf-block li strong { color: var(--text); }
+  .pf-stack-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+  .pf-req-table { width: 100%; border-collapse: collapse; margin-top: .5rem; }
+  .pf-req-table td { font-size: .8rem; color: var(--muted); padding: .45rem 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .pf-req-table td:first-child { color: var(--glow-bright); font-family: 'JetBrains Mono', monospace; font-size: .68rem; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; padding-right: 1rem; width: 90px; }
+  .pf-req-table tr:last-child td { border-bottom: none; }
+  @media (max-width: 860px) { .product-frame-grid { grid-template-columns: 1fr; } .product-frame { padding: 1.75rem; } }
+
   /* ===================== ROLE PILLS (USER/CREATOR/ADMIN) ===================== */
   .role-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; margin-bottom: 1rem; }
   .role-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.75rem; position: relative; overflow: hidden; }
@@ -418,6 +437,49 @@
     </div>
   </div>
 </div>
+
+<!-- ============ PRODUCT FRAMING ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="product-frame">
+      <div class="product-frame-grid">
+        <div class="pf-block">
+          <div class="pf-label">The Design Problem</div>
+          <p>Every major streaming platform supports viewers and creators at once, that part isn't novel. The actual problem was structural: design a schema where three roles with genuinely different data needs, billing for viewers, follower metrics for creators, platform-wide visibility for admins, can all sit on the same USER record without forcing a redesign every time one role's requirements changed. Get the specialization wrong early and every table after it inherits the mistake.</p>
+        </div>
+        <div class="pf-block">
+          <div class="pf-label">The Calls I Made</div>
+          <ul>
+            <li>Pushed the team to lock <strong>requirements per role first</strong>, before any table existed, so the schema served three actual workflows instead of one generic "user" assumption</li>
+            <li>Chose <strong>disjoint specialization with shared keys</strong> over a single flat USER table, the harder design up front, but the one that doesn't duplicate data as roles grow</li>
+            <li>Called out the <strong>ACTORS junction-table issue</strong> as a documented fix rather than a quiet patch, because how a team catches its own design mistakes belongs in the deliverable, not edited out of it</li>
+            <li>Treated the MongoDB conversion as <strong>five separate decisions</strong>, not one default, since embedding everything would have been faster to write and wrong to ship</li>
+          </ul>
+        </div>
+        <div class="pf-block">
+          <div class="pf-label">Requirements by Role</div>
+          <p>Scoped before any table was drawn, the same sequencing a PRD forces: know what each user needs to do before deciding how the data is shaped.</p>
+          <table class="pf-req-table">
+            <tr><td>Viewer</td><td>Browse, subscribe, track viewing progress. Needs subscription tier, payment history, and a per-session completion log.</td></tr>
+            <tr><td>Creator</td><td>Upload and grow a channel. Needs follower count, verification status, and visibility into content performance.</td></tr>
+            <tr><td>Admin</td><td>Oversee the platform. Needs analytical access across every entity, not just their own data.</td></tr>
+          </table>
+        </div>
+        <div class="pf-block">
+          <div class="pf-label">Status & Stack</div>
+          <p>Complete for IS 455. MySQL implementation with 10 production-style SQL queries, a MongoDB document model across 6 collections, and a Figma prototype mapping every screen back to the schema. Live on GitHub.</p>
+          <div class="pf-stack-row">
+            <span class="pill glow">MySQL</span>
+            <span class="pill glow">MongoDB</span>
+            <span class="pill mint">Figma</span>
+            <span class="pill mint">EERD</span>
+            <span class="pill live">3NF Verified</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ============ SCENARIO ============ -->
 <section class="section">

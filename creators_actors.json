@@ -1,0 +1,118 @@
+{
+  "creators": [
+    {
+      "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c101" },
+      "user_id": 6,
+      "first_name": "Frank",
+      "last_name": "Lin",
+      "username": "flin",
+      "email": "frank.lin@email.com",
+      "joining_date": "2021-09-05",
+      "channel_desc": "Tech reviews and coding tutorials",
+      "followers": 120000,
+      "verified": true,
+      "content": [
+        { "$ref": "content", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c001" } },
+        { "$ref": "content", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c010" } }
+      ]
+    },
+    {
+      "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c102" },
+      "user_id": 7,
+      "first_name": "Grace",
+      "last_name": "Okafor",
+      "username": "gokafor",
+      "email": "grace.okafor@email.com",
+      "joining_date": "2022-07-11",
+      "channel_desc": "Lifestyle, travel and food vlogs",
+      "followers": 85000,
+      "verified": true,
+      "content": [
+        { "$ref": "content", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c011" } }
+      ]
+    },
+    {
+      "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c103" },
+      "user_id": 8,
+      "first_name": "Hiro",
+      "last_name": "Tanaka",
+      "username": "htanaka",
+      "email": "hiro.tanaka@email.com",
+      "joining_date": "2020-11-30",
+      "channel_desc": "Anime and manga deep-dives",
+      "followers": 47000,
+      "verified": false,
+      "content": [
+        { "$ref": "content", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c002" } }
+      ]
+    },
+    {
+      "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c105" },
+      "user_id": 10,
+      "first_name": "James",
+      "last_name": "Nwosu",
+      "username": "jnwosu",
+      "email": "james.nwosu@email.com",
+      "joining_date": "2019-04-22",
+      "channel_desc": "Documentary storytelling channel",
+      "followers": 210000,
+      "verified": true,
+      "content": [
+        { "$ref": "content", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c012" } }
+      ]
+    }
+  ],
+
+  "actors": [
+    {
+      "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c201" },
+      "actor_id": 1,
+      "name": "Lena Vasquez",
+      "gender": "Female",
+      "appears_in": [
+        { "$ref": "content", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c010" } },
+        { "$ref": "content", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c001" } }
+      ]
+    },
+    {
+      "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c202" },
+      "actor_id": 2,
+      "name": "Kenji Mori",
+      "gender": "Male",
+      "appears_in": [
+        { "$ref": "content", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c011" } },
+        { "$ref": "content", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c002" } }
+      ]
+    },
+    {
+      "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c203" },
+      "actor_id": 3,
+      "name": "Daniel Stone",
+      "gender": "Male",
+      "appears_in": [
+        { "$ref": "content", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c012" } },
+        { "$ref": "content", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c001" } }
+      ]
+    },
+    {
+      "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c204" },
+      "actor_id": 4,
+      "name": "Priya Sharma",
+      "gender": "Female",
+      "appears_in": [
+        { "$ref": "content", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c013" } },
+        { "$ref": "content", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c014" } }
+      ]
+    },
+    {
+      "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c205" },
+      "actor_id": 5,
+      "name": "Marcus Webb",
+      "gender": "Male",
+      "appears_in": [
+        { "$ref": "content", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c015" } },
+        { "$ref": "content", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c016" } }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c401" },
+    "pay_id": 1,
+    "user_id": 11,
+    "amount": 9.99,
+    "pay_date": { "$date": "2024-01-01T00:00:00Z" },
+    "pay_method": "Credit Card",
+    "pay_status": "Completed"
+  },
+  {
+    "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c402" },
+    "pay_id": 2,
+    "user_id": 12,
+    "amount": 14.99,
+    "pay_date": { "$date": "2024-02-15T00:00:00Z" },
+    "pay_method": "PayPal",
+    "pay_status": "Completed"
+  },
+  {
+    "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c403" },
+    "pay_id": 3,
+    "user_id": 13,
+    "amount": 9.99,
+    "pay_date": { "$date": "2024-03-01T00:00:00Z" },
+    "pay_method": "Debit Card",
+    "pay_status": "Failed"
+  },
+  {
+    "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c404" },
+    "pay_id": 4,
+    "user_id": 14,
+    "amount": 19.99,
+    "pay_date": { "$date": "2024-01-20T00:00:00Z" },
+    "pay_method": "Credit Card",
+    "pay_status": "Completed"
+  },
+  {
+    "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c405" },
+    "pay_id": 5,
+    "user_id": 15,
+    "amount": 14.99,
+    "pay_date": { "$date": "2024-04-10T00:00:00Z" },
+    "pay_method": "Apple Pay",
+    "pay_status": "Completed"
+  }
+]

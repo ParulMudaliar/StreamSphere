@@ -1,0 +1,62 @@
+[
+  {
+    "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c010" },
+    "content_id": 6,
+    "title": "Neon Horizon",
+    "type": "MOVIE",
+    "publish_status": "Published",
+    "release_date": "2023-11-10",
+    "language": "English",
+    "content_desc": "A sci-fi thriller set in 2087",
+    "genres": ["Sci-Fi"],
+    "duration_minutes": 118,
+    "rating": "PG-13",
+    "creator": {
+      "$ref": "creators",
+      "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c101" }
+    },
+    "cast": [
+      { "$ref": "actors", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c201" } }
+    ]
+  },
+  {
+    "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c011" },
+    "content_id": 7,
+    "title": "Sakura Storm",
+    "type": "MOVIE",
+    "publish_status": "Published",
+    "release_date": "2023-08-25",
+    "language": "Japanese",
+    "content_desc": "A romantic drama set in Kyoto",
+    "genres": ["Romance"],
+    "duration_minutes": 104,
+    "rating": "PG",
+    "creator": {
+      "$ref": "creators",
+      "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c102" }
+    },
+    "cast": [
+      { "$ref": "actors", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c202" } }
+    ]
+  },
+  {
+    "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c012" },
+    "content_id": 8,
+    "title": "Shadow Protocol",
+    "type": "MOVIE",
+    "publish_status": "Published",
+    "release_date": "2022-06-14",
+    "language": "English",
+    "content_desc": "An espionage action film",
+    "genres": ["Action"],
+    "duration_minutes": 132,
+    "rating": "R",
+    "creator": {
+      "$ref": "creators",
+      "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c105" }
+    },
+    "cast": [
+      { "$ref": "actors", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c203" } }
+    ]
+  }
+]

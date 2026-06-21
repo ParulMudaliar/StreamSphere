@@ -1,0 +1,90 @@
+[
+  {
+    "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c030" },
+    "user_id": 11,
+    "first_name": "Karen",
+    "last_name": "Bell",
+    "username": "kbell",
+    "email": "karen.bell@email.com",
+    "date_of_birth": "1994-05-19",
+    "joining_date": "2022-10-01",
+    "role": "viewer",
+    "account_status": "Active",
+    "preferred_language": "English",
+    "contact_numbers": ["+1-555-0101"],
+    "subscription": {
+      "subs_id": 101,
+      "plan_id": 1,
+      "monthly_fee": 9.99,
+      "max_streams": 1,
+      "max_vid_qual": "1080p",
+      "subscription_start_date": "2024-01-01",
+      "subscription_end_date": "2025-01-01"
+    },
+    "payments": [
+      { "$ref": "payments", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c401" } }
+    ],
+    "watch_history": [
+      { "$ref": "history", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c501" } },
+      { "$ref": "history", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c505" } }
+    ]
+  },
+  {
+    "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c031" },
+    "user_id": 12,
+    "first_name": "Leo",
+    "last_name": "Sato",
+    "username": "lsato",
+    "email": "leo.sato@email.com",
+    "date_of_birth": "1990-09-27",
+    "joining_date": "2021-12-15",
+    "role": "viewer",
+    "account_status": "Active",
+    "preferred_language": "Japanese",
+    "contact_numbers": ["+1-555-0102"],
+    "subscription": {
+      "subs_id": 102,
+      "plan_id": 2,
+      "monthly_fee": 14.99,
+      "max_streams": 2,
+      "max_vid_qual": "4K",
+      "subscription_start_date": "2024-02-15",
+      "subscription_end_date": "2025-02-15"
+    },
+    "payments": [
+      { "$ref": "payments", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c402" } }
+    ],
+    "watch_history": [
+      { "$ref": "history", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c502" } }
+    ]
+  },
+  {
+    "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c032" },
+    "user_id": 14,
+    "first_name": "Nathan",
+    "last_name": "Johansson",
+    "username": "njohansson",
+    "email": "nathan.j@email.com",
+    "date_of_birth": "1987-11-11",
+    "joining_date": "2020-05-17",
+    "role": "viewer",
+    "account_status": "Active",
+    "preferred_language": "Swedish",
+    "contact_numbers": [],
+    "subscription": {
+      "subs_id": 104,
+      "plan_id": 4,
+      "monthly_fee": 19.99,
+      "max_streams": 4,
+      "max_vid_qual": "4K HDR",
+      "subscription_start_date": "2024-01-20",
+      "subscription_end_date": "2025-01-20"
+    },
+    "payments": [
+      { "$ref": "payments", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c403" } }
+    ],
+    "watch_history": [
+      { "$ref": "history", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c503" } }
+    ]
+  }
+]

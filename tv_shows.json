@@ -1,0 +1,85 @@
+[
+  {
+    "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c001" },
+    "content_id": 11,
+    "title": "Code Breakers",
+    "type": "TV_SHOW",
+    "publish_status": "Published",
+    "release_date": "2023-01-01",
+    "language": "English",
+    "content_desc": "Hackers vs corporations - a drama series",
+    "genres": ["Thriller"],
+    "ratings": 8.4,
+    "spin_off": null,
+    "creator": {
+      "$ref": "creators",
+      "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c101" }
+    },
+    "seasons": [
+      {
+        "season_id": 1,
+        "number": 1,
+        "episodes": [
+          {
+            "episode_id": 1,
+            "number": 1,
+            "length_minutes": 45
+          },
+          {
+            "episode_id": 2,
+            "number": 2,
+            "length_minutes": 47
+          }
+        ]
+      },
+      {
+        "season_id": 2,
+        "number": 2,
+        "episodes": [
+          {
+            "episode_id": 3,
+            "number": 1,
+            "length_minutes": 42
+          }
+        ]
+      }
+    ],
+    "cast": [
+      { "$ref": "actors", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c201" } },
+      { "$ref": "actors", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c203" } }
+    ]
+  },
+  {
+    "_id": { "$oid": "64a1f2b3c4e5d6f7a8b9c002" },
+    "content_id": 13,
+    "title": "Mecha Rising",
+    "type": "TV_SHOW",
+    "publish_status": "Published",
+    "release_date": "2023-04-10",
+    "language": "Japanese",
+    "content_desc": "Giant robots defend Earth",
+    "genres": ["Animation"],
+    "ratings": 8.9,
+    "spin_off": null,
+    "creator": {
+      "$ref": "creators",
+      "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c103" }
+    },
+    "seasons": [
+      {
+        "season_id": 4,
+        "number": 1,
+        "episodes": [
+          {
+            "episode_id": 4,
+            "number": 1,
+            "length_minutes": 50
+          }
+        ]
+      }
+    ],
+    "cast": [
+      { "$ref": "actors", "$id": { "$oid": "64a1f2b3c4e5d6f7a8b9c202" } }
+    ]
+  }
+]
